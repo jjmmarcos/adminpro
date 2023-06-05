@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   googleInit() {
     google.accounts.id.initialize({
       client_id: "857879778481-c4tr0toqlkvftecadt6oac5ddgjj9j08.apps.googleusercontent.com",
-      callback: this.handleCredentialResponse
+      callback: (response: any) => this.handleCredentialResponse(response)
     });
 
     google.accounts.id.renderButton(
@@ -51,6 +51,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   handleCredentialResponse(response) {
     console.log("Encoded JWT ID token: " + response.credential);
+    this.usuarioService.loginGoogle(response.credential)
+      .subscribe( resp => {
+        console.log({ login: resp });
+      });
   }
               
   login() {

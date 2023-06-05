@@ -13,10 +13,10 @@ export class RegisterComponent {
   public formSubmitted = false;
 
   public registerForm = this.fb.group({
-    nombre: ['', Validators.required ],
-    email: ['', [ Validators.required, Validators.email ] ],
+    nombre: ['javier', Validators.required ],
+    email: ['javier@gmail.com', [ Validators.required, Validators.email ] ],
     password: ['123456', Validators.required ],
-    password2: ['1234567', Validators.required ],
+    password2: ['123456', Validators.required ],
     terminos: [ true, Validators.required ],
   }, {
     validators: this.passwordsIguales('password', 'password2')
@@ -55,7 +55,7 @@ export class RegisterComponent {
     const pass1 = this.registerForm.get('password').value;
     const pass2 = this.registerForm.get('password2').value;
 
-    return ( (pass1 === pass2) && this.formSubmitted ) 
+    return ( (pass1 !== pass2) && this.formSubmitted ) 
       ? true
       : false;
   }

@@ -12,7 +12,7 @@ export class HeaderComponent {
   constructor( private usuarioService: UsuarioService ) { }
 
   logout() {
-    //this.usuarioService.logout();
+    this.usuarioService.logout();
   }
 
 

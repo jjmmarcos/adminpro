@@ -9,20 +9,20 @@ import { tap } from 'rxjs/operators';
 export class AuthGuard implements CanActivate {
 
   constructor( private usuarioService: UsuarioService,
-               private router: Router ) {}
+               private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
 
-    return this.usuarioService.validarToken()
-      .pipe(
-        tap(isAuth => {
-          if(!isAuth) {
-            this.router.navigateByUrl('/login');
-          }
-        })
-      );
+      return this.usuarioService.validarToken()
+        .pipe(
+          tap( estaAutenticado =>  {
+            if ( !estaAutenticado ) {
+              this.router.navigateByUrl('/login');
+            }
+          })
+        );
   }
   
 }

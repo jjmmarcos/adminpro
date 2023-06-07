@@ -10,8 +10,10 @@ import { environment } from '../../environments/environment';
 
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
+import { Usuario } from '../models/usuario.model';
 
 const base_url = environment.base_url;
+
 
 declare const gapi: any;
 
@@ -19,8 +21,8 @@ declare const gapi: any;
   providedIn: 'root'
 })
 export class UsuarioService {
-
   public auth2: any;
+  public usuario: Usuario;
 
   constructor( private http: HttpClient, 
                 private router: Router,
@@ -31,7 +33,6 @@ export class UsuarioService {
 
 
   googleInit() {
-
     return new Promise<void>( resolve => {
       gapi.load('auth2', () => {
         this.auth2 = gapi.auth2.init({
@@ -66,9 +67,18 @@ export class UsuarioService {
       }
     }).pipe(
       tap( (resp: any) => {
+        const { 
+          nombre,
+          email,
+          img,
+          google,
+          role,
+          uid } = resp.usuario;
+        this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
+        this.usuario.imprimirUsuario();
         localStorage.setItem('token', resp.token );
       }),
-      map( resp => true),
+      map( resp => true ),
       catchError( error => of(false) )
     );
 

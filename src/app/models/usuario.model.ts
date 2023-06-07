@@ -11,6 +11,8 @@ export class Usuario {
         public uid?: string,
     ) {}
 
-
+    imprimirUsuario() {
+        console.log(this.nombre);
+    }    
 }
 

@@ -1,3 +1,6 @@
+import { environment } from "src/environments/environment";
+
+const base_url = environment.base_url;
 
 export class Usuario {
 
@@ -11,8 +14,13 @@ export class Usuario {
         public uid?: string,
     ) {}
 
-    imprimirUsuario() {
-        console.log(this.nombre);
+    get imageUrl() {
+        if( this.img.includes('https') ) 
+            return this.img;
+
+        return ( this.img ) 
+            ? `${ base_url }/upload/usuario/${ this.img }`        
+            : `${ base_url }/upload/usuario/no-image`;
     }    
 }
 

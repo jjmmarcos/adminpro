@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
 
   public loginForm = this.fb.group({
     email: [ localStorage.getItem('email') || '' , [ Validators.required, Validators.email ] ],
-    password: ['', Validators.required ],
-    remember: [false]
+    password: ['123456', Validators.required ],
+    remember: [true]
   });
 
 
